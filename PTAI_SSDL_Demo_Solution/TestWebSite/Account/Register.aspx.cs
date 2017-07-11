@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -29,6 +29,14 @@ namespace TestWebSite.Account
             }
             else 
             {
+                // TODO: AI issue #13, Medium, XSS, http://ptssdal.ptsecurity.it.prv/#/taskResults/25
+                // POST /Account/Register.aspx HTTP/1.1
+                // Host: localhost
+                // Content-Length: 40
+                // Content-Type: application/x-www-form-urlencoded
+                //
+                // __AI_Button_jbptekyi=True&Password=False
+                // Microsoft.AspNet.Identity.UserManagerExtensions.Create(Microsoft.AspNet.Identity.Owin.OwinContextExtensions.GetUserManager(System.Web.HttpContextExtensions.GetOwinContext(ASP.Page_Account_Register_aspx.Context)), TestWebSite.Models.ApplicationUser, System.Web.UI.WebControls.TextBox.Text).Errors[0].Contains("<script>alert(1)</script>")
                 ErrorMessage.Text = result.Errors.FirstOrDefault();
             }
         }
